@@ -1,8 +1,3 @@
-# Node.js
-# Build a general Node.js project with npm.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
 trigger:
 - main
 
@@ -16,13 +11,18 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
+    set -e  # Exit immediately if a command fails
+    echo "Installing dependencies..."
     npm install
+
+    echo "Running build..."
     npm run build
   displayName: 'npm install and build'
 
 - script: |
-    echo "Building the application..."
-    mkdir artifacts
+    echo "Creating artifacts folder..."
+    mkdir -p artifacts
+
     echo "This is a sample artifact." > artifacts/sample.txt
   displayName: 'Create Artifacts'
 
