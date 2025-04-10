@@ -6,8 +6,7 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send('Hello to the world of Azure');
-}
-);
+});
 
 const Port = 3000;
 
