@@ -1,0 +1,33 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '20.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    set -e  # Exit immediately if a command fails
+    echo "Installing dependencies..."
+    npm install
+
+    echo "Running build..."
+    npm run build
+  displayName: 'npm install and build'
+
+- script: |
+    echo "Creating artifacts folder..."
+    mkdir -p artifacts
+
+    echo "This is a sample artifact." > artifacts/sample.txt
+  displayName: 'Create Artifacts'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'artifacts'
+    ArtifactName: 'MyArtifact'
+    publishLocation: 'Container'
